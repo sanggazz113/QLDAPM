@@ -104,4 +104,14 @@ class HangSanXuatController extends Controller
 		// Quay về danh sách
 		return redirect()->route('admin.hangsanxuat');
 	}
+	public function postNhap(Request $request)
+	{
+		Excel::import(new HangSanXuatImport, $request->file('file_excel'));
+		return redirect()->route('admin.hangsanxuat');
+	}
+	
+	public function getXuat()
+	{
+		return Excel::download(new HangSanXuatExport, 'hang-san-xuat.xlsx');
+	}
 }
